@@ -1,0 +1,4 @@
+# Ignore Python virtual environment files
+venv/
+env/
+inivos_env/
