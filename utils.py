@@ -31,6 +31,7 @@ def get_avg_power_reading(filtered_data):
             continue
 
     result = []
+    
     for key, items in power_reading_hash_map.items():
         power_avg = sum(items) / len(items) if items else 0
         currennt_items = current_reading_hash_map.get(key, [])
