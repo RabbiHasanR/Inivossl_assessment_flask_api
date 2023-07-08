@@ -1,7 +1,9 @@
 from datetime import datetime, date
 from flask import Flask, request, jsonify
-from database import Reading, database, add_reading, get_reading
-from utils import convert_timestamp_to_iso
+from database import ( Reading, database, 
+                      add_reading, get_reading )
+from utils import ( convert_timestamp_to_iso, convert_isoformat_to_date_string, 
+                   get_avg_power_reading )
 
 app = Flask(__name__)
 
@@ -36,18 +38,21 @@ def post_data():
 
 @app.route('/data', methods=['GET'])
 def get_data():
-    from_date = date.fromisoformat(request.args.get('from'))
-    to_date = date.fromisoformat(request.args.get('to'))
+    from_date =convert_isoformat_to_date_string(request.args.get('from'))
+    to_date = convert_isoformat_to_date_string(request.args.get('to'))
 
     if not from_date or not to_date:
         return 'Please provide both "from" and "to" parameters.', 400
     filtered_data = [
         reading.__dict__ for reading in database.values()
-        if from_date <= datetime.fromisoformat(reading.time).date() <= to_date
+        if from_date <= convert_isoformat_to_date_string(reading.time) <= to_date
     ]
 
+    avg_power_readings = get_avg_power_reading(filtered_data)
 
-    return jsonify(filtered_data + avg_power_reading_list)
+    result = filtered_data + avg_power_readings
+
+    return jsonify(result)
 
 
 
