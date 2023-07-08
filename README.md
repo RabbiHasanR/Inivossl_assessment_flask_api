@@ -58,11 +58,12 @@ To send data to the POST /data endpoint, you can use a tool like Postman. To ret
 
 * How could we optimise this code if the API receives many more POST requests than GET requests? What about if the API receives many more GET requests than POST requests?
 
-    Using chaching mechanism, Using database that is optimize for  writing operation for post  request and
+    * Using chaching mechanism, Using database that is optimize for  writing operation for post  request and
     use database that is  optimize for reading operation for  get, using load balancer for distribute tarffic accross multiple  servers
 
 * Would any of this logic need to change to scale to millions of simultaneous connections?
-    Yes, the logic in the code would need to change to scale to millions of simultaneous connections. Here are a few things that you would need to consider: Scalable database, load balancer, caching mechanism, using cdn for static content, optimize database query, can use microservice architecture
+
+    * Yes, the logic in the code would need to change to scale to millions of simultaneous connections. Here are a few things that you would need to consider: Scalable database, load balancer, caching mechanism, using cdn for static content, optimize database query, can use microservice architecture
 
 
 
